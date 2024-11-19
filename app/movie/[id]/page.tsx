@@ -100,7 +100,8 @@ const MovieDetailsPage: React.FC = () => {
           </p>
 
           <div className="casts my-6">
-            <h2 className="text-xl font-bold mb-3">Top Cast</h2>
+            <h2 className="text-xl font-bold mb-3
+            ">Top Cast</h2>
             <div className="flex gap-4 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
               {cast
                 .filter((member) => member.profile_path) // Skip cast without a profile picture

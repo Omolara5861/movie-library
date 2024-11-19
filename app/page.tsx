@@ -8,6 +8,7 @@ import SearchBar from './components/searchBar/SearchBar';
 import { fetchPopularMovies } from './utils/api';
 import { Movie } from './utils/types/types';
 
+
 const HomePage: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [page, setPage] = useState<number>(1);
