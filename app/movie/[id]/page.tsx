@@ -1,8 +1,9 @@
 "use client";
 
 import Loader from '@/app/components/loader/Loader';
-import { fetchMovieDetails } from '@/app/utils/api';
-import { MovieDetails } from '@/app/utils/types/types';
+import MovieCard from '@/app/components/movieCard/MovieCard';
+import { fetchMovieDetails, fetchMovieRecommendations } from '@/app/utils/api';
+import { Movie, MovieDetails } from '@/app/utils/types/types';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -12,7 +13,7 @@ const MovieDetailsPage: React.FC = () => {
   const [movie, setMovie] = useState<MovieDetails | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
-
+  const [relatedMovies, setRelatedMovies] = useState<Movie[]>([]);
   // Load movie details
   useEffect(() => {
     const loadMovieDetails = async () => {
@@ -31,6 +32,12 @@ const MovieDetailsPage: React.FC = () => {
       }
     };
     loadMovieDetails();
+
+    const loadRecommendations = async () => {
+      const response = await fetchMovieRecommendations(id as string);
+      setRelatedMovies(response.data.results.slice(0, 3));
+    };
+    if (id) loadRecommendations();
   }, [id]);
 
   // Toggle favorite functionality
@@ -56,7 +63,7 @@ const MovieDetailsPage: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="flex flex-col md:flex-row items-center md:items-start md:gap-6">
+      <div className="flex flex-col md:flex-row items-center md:items-start md:gap-6 mb-10">
         {/* Movie Poster */}
         <div className="w-full md:w-1/3">
           <Image
@@ -93,6 +100,13 @@ const MovieDetailsPage: React.FC = () => {
             {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
           </button>
         </div>
+      </div>
+      {/* Similar Movies */}
+      <h2 className="text-xl font-bold mt-6">Related Movies</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4 mt-4">
+        {relatedMovies.map((movie) => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
       </div>
     </div>
   );
