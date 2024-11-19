@@ -2,13 +2,12 @@
 
 import { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import Loader from "./components/loader/Loader";
+// import Loader from "./components/loader/Loader";
 import MovieCard from "./components/movieCard/MovieCard";
 import SearchBar from "./components/searchBar/SearchBar";
 import { fetchPopularMovies } from "./utils/api";
 import { Movie } from "./utils/types/types";
+import SkeletonLoader from "./components/loader/SkeletonLoader";
 
 const HomePage: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -90,21 +89,20 @@ const HomePage: React.FC = () => {
 
       {/* Infinite Scrolling */}
       <InfiniteScroll
-        dataLength={filteredMovies.length} // Length of currently loaded movies
-        next={() => setPage((prevPage) => prevPage + 1)} // Load the next page
-        hasMore={hasMore} // Check if more data is available
-        loader={<Loader />} // Loader component
-        endMessage={<p className="text-center mt-4">You have seen it all!</p>} // End message
+        dataLength={filteredMovies.length}
+        next={() => setPage((prevPage) => prevPage + 1)}
+        hasMore={hasMore}
+        loader={<SkeletonLoader />}
+        endMessage={
+          <p className="text-center mt-4">
+            No more movies to load at this time, pls comeback later!
+          </p>
+        }
       >
         <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4 mt-4">
-          {filteredMovies.length === 0 && !hasMore
-            ? // Skeleton Loader for Loading State
-              Array.from({ length: 6 }).map((_, index) => (
-                <Skeleton key={index} height={300} />
-              ))
-            : filteredMovies.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
-              ))}
+          {filteredMovies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
         </div>
       </InfiniteScroll>
 
