@@ -100,8 +100,8 @@ const HomePage: React.FC = () => {
         }
       >
         <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4 mt-4">
-          {filteredMovies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
+          {filteredMovies.map((movie, index) => (
+            <MovieCard key={index} movie={movie} />
           ))}
         </div>
       </InfiniteScroll>
