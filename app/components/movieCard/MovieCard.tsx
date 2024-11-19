@@ -1,0 +1,23 @@
+import { Movie } from '@/app/utils/types/types';
+import Image from 'next/image';
+import Link from 'next/link';
+
+interface MovieCardProps {
+    movie: Movie;
+}
+
+const MovieCard: React.FC<MovieCardProps> = ({ movie }) => (
+    <Link href={`/movie/${movie.id}`}>
+        <div className="bg-gray-800 rounded-lg p-4 cursor-pointer">
+
+            <Image src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                alt={movie.title}
+                className="rounded-md" layout="fill" />
+            <h2 className="text-lg font-semibold mt-2">{movie.title}</h2>
+            <p className="text-sm text-gray-400">{movie.release_date}</p>
+            <p className="text-sm text-yellow-500">⭐ {movie.vote_average}</p>
+        </div>
+    </Link>
+);
+
+export default MovieCard;
