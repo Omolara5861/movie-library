@@ -72,12 +72,12 @@ const HomePage: React.FC = () => {
   return (
     <div className="container mx-auto p-4">
       {/* Search and Sort */}
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-4 gap-3">
         <SearchBar value={query} onChange={setQuery} />
         <select
           value={sortBy}
           onChange={handleSortChange}
-          className="border rounded px-4 py-2"
+          className="p-2 rounded border border-gray-300 !text-[#28231d]"
         >
           <option value="popularity.desc">Most Popular</option>
           <option value="vote_average.desc">Top Rated</option>
