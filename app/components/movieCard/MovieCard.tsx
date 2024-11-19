@@ -12,7 +12,8 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => (
 
             <Image src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                 alt={movie.title}
-                className="rounded-md" layout="fill" />
+                className="rounded-md" width={800}
+                height={800}/>
             <h2 className="text-lg font-semibold mt-2">{movie.title}</h2>
             <p className="text-sm text-gray-400">{movie.release_date}</p>
             <p className="text-sm text-yellow-500">⭐ {movie.vote_average}</p>

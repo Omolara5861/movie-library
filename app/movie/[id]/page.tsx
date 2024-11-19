@@ -35,7 +35,8 @@ const MovieDetailsPage: React.FC = () => {
       <Image src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
         alt={movie.title}
         className="rounded-lg"
-        layout="fill"
+        width={800}
+        height={800}
       />
       <p className="mt-4">{movie.overview}</p>
       <p className="mt-2">Genres: {movie.genres?.map((g) => g.name).join(', ')}</p>

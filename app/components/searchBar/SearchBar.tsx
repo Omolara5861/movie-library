@@ -9,7 +9,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ value, onChange }: { value: strin
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Search movies..."
-        className="w-full p-2 rounded border border-gray-300"
+        className="w-full p-2 rounded border border-gray-300 !text-[#28231d]"
     />
 );
 
