@@ -53,7 +53,7 @@ const HomePage: React.FC = () => {
         loader={<Loader />} // Loader component
         endMessage={<p className="text-center mt-4">You have seen it all!</p>} // End message
       >
-        <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-4 mt-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4 mt-4">
           {filteredMovies.map((movie, index) => (
             <MovieCard key={index} movie={movie} />
           ))}
