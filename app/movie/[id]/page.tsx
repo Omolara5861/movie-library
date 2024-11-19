@@ -2,8 +2,8 @@
 
 import Loader from '@/app/components/loader/Loader';
 import MovieCard from '@/app/components/movieCard/MovieCard';
-import { fetchMovieDetails, fetchMovieRecommendations } from '@/app/utils/api';
-import { Movie, MovieDetails } from '@/app/utils/types/types';
+import { fetchMovieCredits, fetchMovieDetails, fetchMovieRecommendations } from '@/app/utils/api';
+import { CastMember, Movie, MovieDetails } from '@/app/utils/types/types';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -13,6 +13,7 @@ const MovieDetailsPage: React.FC = () => {
   const [movie, setMovie] = useState<MovieDetails | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const [cast, setCast] = useState<CastMember[]>([]);
   const [relatedMovies, setRelatedMovies] = useState<Movie[]>([]);
   // Load movie details
   useEffect(() => {
@@ -33,11 +34,17 @@ const MovieDetailsPage: React.FC = () => {
     };
     loadMovieDetails();
 
+    const loadCredits = async () => {
+      const response = await fetchMovieCredits(id as string);
+      setCast(response.data.cast.slice(0, 10)); // Show top 10 cast members
+    };
+    loadCredits();
+
     const loadRecommendations = async () => {
       const response = await fetchMovieRecommendations(id as string);
       setRelatedMovies(response.data.results.slice(0, 3));
     };
-    if (id) loadRecommendations();
+    loadRecommendations();
   }, [id]);
 
   // Toggle favorite functionality
@@ -63,7 +70,8 @@ const MovieDetailsPage: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="flex flex-col md:flex-row items-center md:items-start md:gap-6 mb-10">
+      <div className="flex flex-col md:flex-row items-center md:items-start md:gap-6 mb-1
+      0">
         {/* Movie Poster */}
         <div className="w-full md:w-1/3">
           <Image
@@ -90,6 +98,26 @@ const MovieDetailsPage: React.FC = () => {
           <p className="mb-4 text-yellow-500">
             <strong>Average Rating:</strong> {movie.vote_average} ⭐
           </p>
+
+          <div className="casts my-6">
+            <h2 className="text-xl font-bold mb-3">Top Cast</h2>
+            <div className="flex gap-4 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
+              {cast
+                .filter((member) => member.profile_path) // Skip cast without a profile picture
+                .map((member) => (
+                  <div key={member.id} className="w-24 text-center flex-shrink-0">
+                    <Image
+                      src={`https://image.tmdb.org/t/p/w200/${member.profile_path}`}
+                      alt={member.name}
+                      className="rounded-md"
+                      width={96}
+                      height={144}
+                    />
+                    <p className="text-sm mt-2 truncate">{member.name}</p>
+                  </div>
+                ))}
+            </div>
+          </div>
 
           {/* Favorite Button */}
           <button
