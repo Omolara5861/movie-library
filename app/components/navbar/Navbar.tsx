@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { FiSun, FiMoon } from "react-icons/fi";
-import { NavbarProps } from '../../utils/types/types';
+import { NavbarProps } from "../../utils/types/types";
 
 const Navbar: React.FC<NavbarProps> = ({ toggleDarkMode, darkMode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,7 +11,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggleDarkMode, darkMode }) => {
   const toggleMobileMenu = () => setIsMenuOpen((prev) => !prev);
 
   return (
-    <nav className="bg-gray-800 text-white py-4 dark:bg-gray-900">
+    <nav className="bg-gray-800 text-white py-4 dark:bg-gray-900 sticky top-0 z-50 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
         <Link className="text-2xl font-bold" href="/">
           🎬 Movie Library
