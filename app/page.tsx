@@ -95,11 +95,12 @@ const HomePage: React.FC = () => {
           className="border rounded px-4 py-2 !text-[#28231d]"
         >
           <option value="popularity.desc">Most Popular</option>
-          <option value="release_date.desc">Newest Releases</option>
-          <option value="release_date.asc">Oldest Releases</option>
-          <option value="revenue.desc">Highest Revenue</option>
           <option value="trending.day">Trending Today</option>
           <option value="trending.week">Trending This Week</option>
+          <option value="vote_average.desc">Top Rated</option>
+          <option value="revenue.desc">Highest Revenue</option>
+          <option value="release_date.desc">Future Releases</option>
+          <option value="release_date.asc">Oldest Releases</option>
         </select>
       </div>
 

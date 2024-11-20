@@ -14,9 +14,12 @@ This is a responsive, dynamic web application built using **Next.js**, **TypeScr
 - Search movies by title.
 - Sort movies by:
   - Most Popular
+  - Trending Today
+  - Trending This Week
+  - Top Rated
+  - Highest Revenue
   - Future Releases
   - Oldest Releases
-  - Highest Revenue
 - Add or remove movies from favorites (persisted via localStorage).
 - View detailed information about a movie, including its genres, overview, casts and average rating.
 - Responsive design for mobile, tablet, and desktop devices.
