@@ -92,7 +92,7 @@ const HomePage: React.FC = () => {
         <select
           value={sortBy}
           onChange={handleSortChange}
-          className="border rounded px-4 py-2"
+          className="border rounded px-4 py-2 !text-[#28231d]"
         >
           <option value="popularity.desc">Most Popular</option>
           <option value="release_date.desc">Newest Releases</option>
