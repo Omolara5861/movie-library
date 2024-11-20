@@ -53,7 +53,7 @@ yarn install
 
 ### Set Up Environment Variables
 
-Create a .env file or rename .env.local file in the root directory and add the following:
+Rename `.env.local` file in the root directory to `.env` and add the following:
 
 ```javascript
 NEXT_PUBLIC_TMDB_API_KEY=your_api_key
@@ -61,9 +61,9 @@ NEXT_PUBLIC_TMDB_BASE_URL=https://api.themoviedb.org/3
 NEXT_PUBLIC_TMDB_ACCESS_TOKEN=your_access_token
 ```
 
-Replace `your_api_key` and `NEXT_PUBLIC_TMDB_ACCESS_TOKEN` with your TMDb API key and token. You can get one from [TMDb API](Ihttps://developer.themoviedb.org/reference/intro/getting-started).
-
+Replace `your_api_key` and `your_access_token` with your TMDb API key and token. You can get one from [TMDb API](Ihttps://developer.themoviedb.org/reference/intro/getting-started).
 Depending on the secret you are using, pls confirm that's what is being used in the app via `app/utils/api.ts`. Else update it
+*Note* Using `token` worked for me
 
 ### Run the Application
 
