@@ -5,7 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 // import Loader from "./components/loader/Loader";
 import MovieCard from "./components/movieCard/MovieCard";
 import SearchBar from "./components/searchBar/SearchBar";
-import { fetchPopularMovies } from "./utils/api";
+import { fetchPopularMovies, fetchTrendingMovies } from "./utils/api";
 import { Movie } from "./utils/types/types";
 import SkeletonLoader from "./components/loader/SkeletonLoader";
 
@@ -17,18 +17,33 @@ const HomePage: React.FC = () => {
   const [sortBy, setSortBy] = useState<string>("popularity.desc");
   const [showScrollToTop, setShowScrollToTop] = useState<boolean>(false);
 
-  // Fetch movies for a specific page
+  // Fetch movies for the selected sort option
   const fetchMovies = async (page: number, sortBy: string) => {
     try {
-      const response = await fetchPopularMovies(page, sortBy);
+      let response;
+      if (sortBy === "trending.day") {
+        // Fetch trending movies (daily)
+        response = await fetchTrendingMovies("day");
+      } else if (sortBy === "trending.week") {
+        // Fetch trending movies (weekly)
+        response = await fetchTrendingMovies("week");
+      } else {
+        // Fetch regular movies based on other sort options
+        response = await fetchPopularMovies(page, sortBy);
+      }
+
       const fetchedMovies = response.data.results;
 
       // Update movie state
-      setMovies((prevMovies) => [...prevMovies, ...fetchedMovies]);
+      setMovies((prevMovies) =>
+        sortBy.includes("trending")
+          ? fetchedMovies
+          : [...prevMovies, ...fetchedMovies]
+      );
 
       // Check if there are more movies to load
-      if (page >= response.data.total_pages) {
-        setHasMore(false);
+      if (sortBy.includes("trending") || page >= response.data.total_pages) {
+        setHasMore(false); // Trending movies don't have pagination
       }
     } catch (error) {
       console.error("Error fetching movies:", error);
@@ -36,7 +51,7 @@ const HomePage: React.FC = () => {
     }
   };
 
-  // Load initial movies and subsequent pages
+  // Load movies when page or sortBy changes
   useEffect(() => {
     fetchMovies(page, sortBy);
   }, [page, sortBy]);
@@ -77,13 +92,14 @@ const HomePage: React.FC = () => {
         <select
           value={sortBy}
           onChange={handleSortChange}
-          className="p-2 rounded border border-gray-300 !text-[#28231d]"
+          className="border rounded px-4 py-2"
         >
           <option value="popularity.desc">Most Popular</option>
-          <option value="vote_average.desc">Top Rated</option>
+          <option value="release_date.desc">Newest Releases</option>
           <option value="release_date.asc">Oldest Releases</option>
-          <option value="release_date.desc">Future Releases</option>
           <option value="revenue.desc">Highest Revenue</option>
+          <option value="trending.day">Trending Today</option>
+          <option value="trending.week">Trending This Week</option>
         </select>
       </div>
 

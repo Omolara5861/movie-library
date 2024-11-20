@@ -35,3 +35,8 @@ export const fetchMovieRecommendations = (
   id: string
 ): Promise<{ data: MovieApiResponse }> =>
   api.get(`/movie/${id}/recommendations`);
+
+export const fetchTrendingMovies = (
+  timeWindow: "day" | "week" = "day"
+): Promise<{ data: MovieApiResponse }> =>
+  api.get(`/trending/movie/${timeWindow}`);
