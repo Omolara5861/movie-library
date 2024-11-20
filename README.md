@@ -1,3 +1,7 @@
+
+![Demo Image](public/demo-img.png)
+
+
 # Movie Library Application
 
 This is a responsive, dynamic web application built using **Next.js**, **TypeScript**, and **Tailwind CSS**. The app fetches movie data from [The Movie Database (TMDb)](https://developer.themoviedb.org/reference/intro/getting-started) API and provides users with features like infinite scrolling, search, sorting, and adding/removing movies from their favorites.
