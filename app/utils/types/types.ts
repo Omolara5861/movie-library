@@ -36,3 +36,8 @@ export interface MovieCredits {
   cast: CastMember[];
   crew: CastMember[];
 }
+
+export interface NavbarProps {
+  toggleDarkMode: () => void;
+  darkMode: boolean;
+}

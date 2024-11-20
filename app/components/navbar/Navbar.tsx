@@ -2,12 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { FiSun, FiMoon } from "react-icons/fi"; // Importing icons
-
-interface NavbarProps {
-  toggleDarkMode: () => void;
-  darkMode: boolean;
-}
+import { FiSun, FiMoon } from "react-icons/fi";
+import { NavbarProps } from '../../utils/types/types';
 
 const Navbar: React.FC<NavbarProps> = ({ toggleDarkMode, darkMode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
